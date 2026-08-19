@@ -29,7 +29,7 @@ public class NewClass {
                case 1:
                    System.out.println("Você escolheu adcionar tarefas.");
                    boolean cadastrou = false;
-                   for (int i = 0; i < 10; i++) {
+                   for (int i = 0; i < 1; i++) {
                        if (!ocupadas[i]){
                            System.out.println("Digite a tarefa: ");
                            tarefas[i] = scanner.nextLine();
@@ -45,7 +45,7 @@ public class NewClass {
                    System.out.println("Você escolheu Listar tarefas.");
                     System.out.println("\n=== MINHAS TAREFAS===");
                     boolean temTarefa = false;
-                    for (int i = 0; i < 10; i++){
+                    for (int i = 0; i < 1; i++){
                         if (ocupadas[i]){
                             temTarefa = true;
                             String status = concluidas[i] ? "[x]" : "[ ]";
