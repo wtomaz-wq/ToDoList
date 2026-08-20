@@ -94,8 +94,15 @@ public class ToDoListProfessor {
                     
                 }         
                 break;
-            }
+            case 5:
+                System.out.println("Programa encerrado. Até mais!");
             
+            break;
+            default:
+                System.out.println("Opção invalida!");
+                break;
+            }
         }
+        
     }
 }
