@@ -142,7 +142,18 @@ public class TelaToDoList extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Descrição da tarefa não pode ser vazia");
             return;
         }
+       if (hasTarefaRepetida(jTextFieldDescricaoTarefa.getText())){
+        JOptionPane.showMessageDialog(null, "A tarefa " + jTextFieldDescricaoTarefa.getText() + "já existe!");
+        return;
+       }
+       
+       tarefas.add(jTextFieldDescricaoTarefa.getText() + ";" + NAO_CONCLUIDA);
+      
+       preencherTabela();
+       
+       jTextFieldDescricaoTarefa.setText("");
     }//GEN-LAST:event_jButtonAdicionarTarefaActionPerformed
+    
     public boolean hasTarefaRepetida(String novaTarefa){
             for (String tarefa : tarefas){
                 String dados[] = tarefa.split(";");
@@ -152,6 +163,27 @@ public class TelaToDoList extends javax.swing.JFrame {
             }
     
             return false;
+    }
+    
+    private void preencherTabela(){
+        ArrayList<String> listaTarefas;
+        
+        if (jComboBoxFiltroStatus.getSelectedIndex() > 0){
+            listaTarefas = tarefasFiltradas;
+        }else{
+            listaTarefas = tarefas;
+        }
+        
+        model.setRowCount (0);
+        
+        for (String tarefa : listaTarefas){
+            String[] dados = tarefa.split(";");
+            
+            model.addRow(new Object[]{
+                dados[0],
+                dados[1]
+            });
+        }
     }
     
     
