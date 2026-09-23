@@ -4,6 +4,10 @@
  */
 package todolist;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Aluno
@@ -11,12 +15,26 @@ package todolist;
 public class TelaToDoList extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaToDoList.class.getName());
-
+    
+    DefaultTableModel model;
+    
+    private static final String CONCLUIDA = "Concluída";
+    private static final String NAO_CONCLUIDA = "Não Concluída";
+    
+    private final ArrayList<String> tarefas = new ArrayList<>();
+    private final ArrayList<String> tarefasFiltradas = new ArrayList<>();
+    
     /**
      * Creates new form TelaToDoList
      */
     public TelaToDoList() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        
+        model = (DefaultTableModel) jTableTarefas.getModel();
+        
+        
     }
 
     /**
@@ -28,6 +46,8 @@ public class TelaToDoList extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jTextFieldDescricaoTarefa = new javax.swing.JTextField();
         jButtonAdicionarTarefa = new javax.swing.JButton();
         jComboBoxFiltroStatus = new javax.swing.JComboBox<>();
@@ -36,10 +56,24 @@ public class TelaToDoList extends javax.swing.JFrame {
         jButtonConcluirTarefa = new javax.swing.JButton();
         jButtonRemoverTarefa = new javax.swing.JButton();
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButtonAdicionarTarefa.setForeground(new java.awt.Color(255, 0, 0));
         jButtonAdicionarTarefa.setText("Adicionar");
+        jButtonAdicionarTarefa.addActionListener(this::jButtonAdicionarTarefaActionPerformed);
 
         jComboBoxFiltroStatus.setForeground(new java.awt.Color(255, 0, 0));
         jComboBoxFiltroStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Concluído", "Não Concluído" }));
@@ -103,6 +137,25 @@ public class TelaToDoList extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonAdicionarTarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarTarefaActionPerformed
+        if (jTextFieldDescricaoTarefa.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Descrição da tarefa não pode ser vazia");
+            return;
+        }
+    }//GEN-LAST:event_jButtonAdicionarTarefaActionPerformed
+    public boolean hasTarefaRepetida(String novaTarefa){
+            for (String tarefa : tarefas){
+                String dados[] = tarefa.split(";");
+                
+                if (novaTarefa.toLowerCase().equals(dados[0].toLowerCase()))
+                    return true;
+            }
+    
+            return false;
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -134,6 +187,8 @@ public class TelaToDoList extends javax.swing.JFrame {
     private javax.swing.JButton jButtonRemoverTarefa;
     private javax.swing.JComboBox<String> jComboBoxFiltroStatus;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableTarefas;
     private javax.swing.JTextField jTextFieldDescricaoTarefa;
     // End of variables declaration//GEN-END:variables
